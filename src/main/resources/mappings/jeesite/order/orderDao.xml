@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiseweb.order.dao.OrderDao">
+	<sql id="DataColumns">
+		a.system_id AS "SYSTEM_ID",
+		a.system_name AS "SYSTEM_NAME",
+		a.system_code AS "SYSTEM_CODE",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		e.table_id AS "orderTable.TABLE_ID",
+		e.table_code AS "orderTable.TABLE_CODE"
+	</sql>
+	
+	<sql id="filedDataColumns">
+		a.field_id AS "fieldId",
+		a.field_number AS "fieldNumber",
+		a.field_name AS "fieldName",
+		a.field_code AS "fieldCode",
+		a.field_type AS "fieldType",
+		a.field_len AS "fieldLen",
+		a.field_accuracy AS "fieldAccuracy",
+		a.key_flag AS "keyFlag",
+		a.or_empty AS "orEmpty",
+		a.table_id AS "tableId",
+		a.table_code AS "tableCode",
+		a.db_code AS "dbCode",
+		a.scheme_code AS "schemeCode",
+		a.system_code AS "systemCode",
+		a.field_key AS "fieldKey",
+		a.create_by AS "createBy.id",
+		a.create_time AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_time AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="DataJoins">
+		LEFT JOIN mu_scheme b ON b.scheme_id = a.scheme_id
+	</sql>
+	
+	<select id="findInfoByTableId" resultType="OrderFiled">
+		SELECT 
+			<include refid="filedDataColumns"/>
+		FROM mu_field a
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			and
+			a.table_id = #{tableId}
+		</where>
+	</select>
+	
+	<select id="findFiledById" resultType="OrderFiled">
+		SELECT 
+			<include refid="filedDataColumns"/>
+		FROM mu_field a
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			and
+			a.field_id = #{fieldId}
+		</where>
+	</select>
+	
+	<select id="findFiledByFiledId" resultType="OrderFiled">
+		SELECT 
+			<include refid="filedDataColumns"/>
+		FROM mu_field a
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			and
+			a.field_id = #{fieldId}
+		</where>
+	</select>
+	
+	<select id="findSystemCode" resultType="String">
+		SELECT 
+			distinct(system_code)
+		FROM mu_field a
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			and
+			a.table_code = #{tableCode}
+		</where>
+	</select>
+	
+	<select id="findDbType" resultType="String">
+		SELECT 
+			db_code
+		FROM mu_db a
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			and
+			a.db_code = #{dbCode}
+		</where>
+	</select>
+	
+	<select id="findTempByTableCode" resultType="OrderTemp">
+		SELECT 
+			a.SYSTEM_CODE AS "systemCode",
+			a.TABLE_CODE AS "tableCode",
+			a.FIELD_CODE AS "fieldCode",
+			a.UPDATE_TYPE AS "updateType",
+			a.OLD_CONTENT AS "oldContent",
+			a.NEW_CONTENT AS "newContent"
+		FROM mu_order_temp a
+		<where>
+			a.table_code = #{tableCode}
+		</where>
+	</select>
+	
+	<select id="findNewTemp" resultType="OrderTemp">
+		select 
+			a.SYSTEM_CODE AS "systemCode",
+			a.TABLE_CODE AS "tableCode",
+			a.FIELD_CODE AS "fieldCode",
+			a.UPDATE_TYPE AS "updateType",
+			a.OLD_CONTENT AS "oldContent",
+			a.NEW_CONTENT AS "newContent"
+		from mu_order_temp a
+		where a.CREATE_TIME in (
+			select MAX(b.CREATE_TIME) 
+			from mu_order_temp b
+			where b.table_code = #{tableCode} GROUP BY b.FIELD_CODE)
+	</select>
+	
+	<select id="findOrderId" resultType="int">
+		select a.ORDER_ID from mu_order a where a.CREATE_TIME in (
+			select MAX(b.CREATE_TIME) from mu_order b where b.DB_CODE = #{dbCode})
+	</select>
+	
+	<select id="findOrderInfoById" resultType="OrderInfo">
+		select 
+			a.SYSTEM_CODE AS "systemCode",
+			a.TABLE_CODE AS "tableCode",
+			a.FIELD_CODE AS "fieldCode",
+			a.UPDATE_TYPE AS "updateType",
+			a.OLD_CONTENT AS "oldContent",
+			a.NEW_CONTENT AS "newContent",
+			a.CREATE_TIME AS "createDate",
+			a.ORDER_ID AS "orderId",
+			b.EXECUTOR AS "order.EXECUTOR",
+			b.CHANGER AS "order.CHANGER"
+		from mu_order_infro a
+		left join mu_order b on b.order_id = a.order_id
+		where a.order_id = #{orderId}
+	</select>
+	
+	<select id="findScriptById" resultType="OrderScript">
+		select 
+			a.ORDER_SCRIPT_ID AS "orderScriptId",
+			a.TABLE_CODE AS "tableCode",
+			a.EXE_STR AS "exeStr",
+			a.SCRIP_TYPE AS "scripType",
+			a.ORDER_ID AS "orderId",
+			a.CREATE_TIME AS "createDate"
+		from mu_order_script a
+		where a.order_id = #{orderId}
+	</select>
+	
+	<insert id="saveOrderTemp">
+		INSERT INTO MU_ORDER_TEMP(
+			SYSTEM_CODE,
+			TABLE_CODE,
+			FIELD_CODE,
+			UPDATE_TYPE,
+			OLD_CONTENT,
+			NEW_CONTENT,
+			create_time
+		) VALUES (
+			#{systemCode},
+			#{tableCode},
+			#{fieldCode},
+			#{updateType},
+			#{oldContent},
+			#{newContent},
+			#{createDate}
+		)
+	</insert>
+	
+	<insert id="saveOrder">	
+		INSERT INTO MU_ORDER(
+			DB_TYPE,
+			UPDATE_TYPE,
+			DB_CODE,
+			AVAILABLE,
+			CREATE_TIME
+		) VALUES (
+			#{DB_TYPE},
+			#{UPDATE_TYPE},
+			#{DB_CODE},
+			#{AVAILABLE},
+			#{createDate}
+		)
+	</insert>
+	
+	
+	<insert id="saveOrderInfo">
+		INSERT INTO MU_ORDER_INFRO(
+			SYSTEM_CODE,
+			TABLE_CODE,
+			FIELD_CODE,
+			UPDATE_TYPE,
+			OLD_CONTENT,
+			NEW_CONTENT,
+			CREATE_TIME,
+			ORDER_ID
+		) VALUES (
+			#{SYSTEM_CODE},
+			#{TABLE_CODE},
+			#{FIELD_CODE},
+			#{UPDATE_TYPE},
+			#{OLD_CONTENT},
+			#{NEW_CONTENT},
+			#{createDate},
+			#{ORDER_ID}
+		)
+	</insert>
+</mapper>

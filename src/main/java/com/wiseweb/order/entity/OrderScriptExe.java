@@ -2,7 +2,7 @@ package com.wiseweb.order.entity;
 
 import com.thinkgem.jeesite.common.persistence.DataEntity;
 
-public class OrderScript extends DataEntity<OrderScript> {
+public class OrderScriptExe extends DataEntity<OrderScriptExe> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -10,7 +10,7 @@ public class OrderScript extends DataEntity<OrderScript> {
 	private String tableCode;
 	private String exeStr;
 	private String scripType;
-	private Integer orderId;
+	private String isExecute;
 
 	public int getOrderScriptId() {
 		return orderScriptId;
@@ -44,12 +44,12 @@ public class OrderScript extends DataEntity<OrderScript> {
 		this.scripType = scripType;
 	}
 
-	public int getOrderId() {
-		return orderId;
+	public String getIsExecute() {
+		return isExecute;
 	}
 
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
+	public void setIsExecute(String isExecute) {
+		this.isExecute = isExecute;
 	}
 
 }

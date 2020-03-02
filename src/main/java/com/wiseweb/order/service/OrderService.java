@@ -23,6 +23,7 @@ import com.wiseweb.order.dao.OrderDao;
 import com.wiseweb.order.entity.OrderFiled;
 import com.wiseweb.order.entity.OrderInfo;
 import com.wiseweb.order.entity.OrderScript;
+import com.wiseweb.order.entity.OrderScriptExe;
 import com.wiseweb.order.entity.OrderSystem;
 import com.wiseweb.order.entity.OrderTable;
 import com.wiseweb.order.entity.OrderTemp;
@@ -100,6 +101,16 @@ public class OrderService extends CrudService<OrderDao,OrderSystem>{
 	public List<OrderScript> findScriptById(OrderScript orderScript) {
 		List<OrderScript> orderScripts = orderDao.findScriptById(orderScript);
 		return orderScripts;
+	}
+
+	public List<OrderScript> findScript(OrderScript orderScript) {
+		List<OrderScript> orderScripts = orderDao.findScript(orderScript);
+		return orderScripts;
+	}
+	
+	@Transactional(readOnly = false)
+	public void saveOrderScriptExe(OrderScriptExe orderScriptExe) {
+		orderDao.saveOrderScriptExe(orderScriptExe);
 	}
 
 }

@@ -143,7 +143,8 @@
 			a.CREATE_TIME AS "createDate",
 			a.ORDER_ID AS "orderId",
 			b.EXECUTOR AS "order.EXECUTOR",
-			b.CHANGER AS "order.CHANGER"
+			b.CHANGER AS "order.CHANGER",
+			b.CREATE_TIME AS "order.createDate"
 		from mu_order_infro a
 		left join mu_order b on b.order_id = a.order_id
 		where a.order_id = #{orderId}
@@ -158,7 +159,23 @@
 			a.ORDER_ID AS "orderId",
 			a.CREATE_TIME AS "createDate"
 		from mu_order_script a
-		where a.order_id = #{orderId}
+		<where>
+			a.order_id = #{orderId}
+		</where>
+	</select>
+	
+	<select id="findScript" resultType="OrderScript">
+		select 
+			a.ORDER_SCRIPT_ID AS "orderScriptId",
+			a.TABLE_CODE AS "tableCode",
+			a.EXE_STR AS "exeStr",
+			a.SCRIP_TYPE AS "scripType",
+			a.ORDER_ID AS "orderId",
+			a.CREATE_TIME AS "createDate"
+		from mu_order_script a
+		<where>
+			a.order_id = #{orderId} and a.scrip_type = #{scripType}
+		</where>
 	</select>
 	
 	<insert id="saveOrderTemp">
@@ -189,10 +206,10 @@
 			AVAILABLE,
 			CREATE_TIME
 		) VALUES (
-			#{DB_TYPE},
-			#{UPDATE_TYPE},
-			#{DB_CODE},
-			#{AVAILABLE},
+			#{dbType},
+			#{updateType},
+			#{dbCode},
+			#{available},
 			#{createDate}
 		)
 	</insert>
@@ -209,14 +226,32 @@
 			CREATE_TIME,
 			ORDER_ID
 		) VALUES (
-			#{SYSTEM_CODE},
-			#{TABLE_CODE},
-			#{FIELD_CODE},
-			#{UPDATE_TYPE},
-			#{OLD_CONTENT},
-			#{NEW_CONTENT},
+			#{systemCode},
+			#{tableCode},
+			#{fieldCode},
+			#{updateType},
+			#{oldContent},
+			#{newContent},
 			#{createDate},
-			#{ORDER_ID}
+			#{orderId}
+		)
+	</insert>
+	
+	<insert id="saveOrderScriptExe">
+		INSERT INTO MU_SCRIPT_EXE(
+			TABLE_CODE,
+			EXE_STR,
+			SCRIP_TYPE,
+			IS_EXECUTE,
+			CREATE_TIME,
+			UPDATE_TIME
+		) VALUES (
+			#{tableCode},
+			#{exeStr},
+			#{scripType},
+			#{isExecute},
+			#{createDate},
+			#{updateDate}
 		)
 	</insert>
 </mapper>

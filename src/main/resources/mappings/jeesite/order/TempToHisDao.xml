@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiseweb.order.dao.TempToHisDao">
+	
+	<select id="findData" resultType="com.wiseweb.order.entity.OrderTemp">
+		select * from MU_ORDER_TEMP
+	</select>
+	
+	<insert id="saveData">
+		INSERT INTO MU_UPDATE_HIS(
+			SYSTEM_CODE,
+			TABLE_CODE,
+			FIELD_CODE,
+			UPDATE_TYPE,
+			OLD_CONTENT,
+			NEW_CONTENT,
+			CREATE_TIME
+		) VALUES (
+			#{systemCode},
+			#{tableCode},
+			#{fieldCode},
+			#{updateType},
+			#{oldContent},
+			#{newContent},
+			#{createDate}
+		)
+	</insert>
+	
+	<delete id="cleanTemp">
+		delete from MU_ORDER_TEMP
+	</delete>
+	
+</mapper>

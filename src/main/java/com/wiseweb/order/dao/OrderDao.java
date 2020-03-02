@@ -9,6 +9,7 @@ import com.wiseweb.order.entity.Order;
 import com.wiseweb.order.entity.OrderFiled;
 import com.wiseweb.order.entity.OrderInfo;
 import com.wiseweb.order.entity.OrderScript;
+import com.wiseweb.order.entity.OrderScriptExe;
 import com.wiseweb.order.entity.OrderSystem;
 import com.wiseweb.order.entity.OrderTemp;
 
@@ -40,5 +41,9 @@ public interface OrderDao extends CrudDao<OrderSystem>{
 	List<OrderInfo> findOrderInfoById(OrderScript orderScript);
 
 	List<OrderScript> findScriptById(OrderScript orderScript);
+
+	List<OrderScript> findScript(OrderScript orderScript);
+
+	void saveOrderScriptExe(OrderScriptExe orderScriptExe);
 
 }

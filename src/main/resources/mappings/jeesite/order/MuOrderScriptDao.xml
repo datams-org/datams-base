@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiseweb.order.dao.MuOrderScriptDao">
+	
+	<insert id="saveScriptSql">
+		INSERT INTO MU_ORDER_SCRIPT(
+			TABLE_CODE,
+			EXE_STR,
+			SCRIP_TYPE,
+			ORDER_ID,
+			create_time
+		) VALUES (
+			#{tableCode},
+			#{exeStr},
+			#{scripType},
+			#{orderId},
+			#{createDate}
+		)
+	</insert>
+	
+</mapper>

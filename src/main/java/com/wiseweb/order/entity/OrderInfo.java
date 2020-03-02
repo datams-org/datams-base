@@ -6,79 +6,81 @@ public class OrderInfo extends DataEntity<OrderInfo> {
 
 	private static final long serialVersionUID = 1L;
 
-	private int ORDER_INFOR_ID;
-	private String SYSTEM_CODE;
-	private String TABLE_CODE;
-	private String FIELD_CODE;
-	private String UPDATE_TYPE;
-	private String OLD_CONTENT;
-	private String NEW_CONTENT;
-	private int ORDER_ID;
-	
+	private int orderInfroId;
+	private String systemCode;
+	private String tableCode;
+	private String fieldCode;
+	private String updateType;
+	private String oldContent;
+	private String newContent;
+	private int orderId;
+
 	private Order order;
 
-	public int getORDER_INFOR_ID() {
-		return ORDER_INFOR_ID;
+
+
+	public int getOrderInfroId() {
+		return orderInfroId;
 	}
 
-	public void setORDER_INFOR_ID(int oRDER_INFOR_ID) {
-		ORDER_INFOR_ID = oRDER_INFOR_ID;
+	public void setOrderInfroId(int orderInfroId) {
+		this.orderInfroId = orderInfroId;
 	}
 
-	public String getSYSTEM_CODE() {
-		return SYSTEM_CODE;
+	public String getSystemCode() {
+		return systemCode;
 	}
 
-	public void setSYSTEM_CODE(String sYSTEM_CODE) {
-		SYSTEM_CODE = sYSTEM_CODE;
+	public void setSystemCode(String systemCode) {
+		this.systemCode = systemCode;
 	}
 
-	public String getTABLE_CODE() {
-		return TABLE_CODE;
+	public String getTableCode() {
+		return tableCode;
 	}
 
-	public void setTABLE_CODE(String tABLE_CODE) {
-		TABLE_CODE = tABLE_CODE;
+	public void setTableCode(String tableCode) {
+		this.tableCode = tableCode;
 	}
 
-	public String getFIELD_CODE() {
-		return FIELD_CODE;
+	public String getFieldCode() {
+		return fieldCode;
 	}
 
-	public void setFIELD_CODE(String fIELD_CODE) {
-		FIELD_CODE = fIELD_CODE;
+	public void setFieldCode(String fieldCode) {
+		this.fieldCode = fieldCode;
 	}
 
-	public String getUPDATE_TYPE() {
-		return UPDATE_TYPE;
+	public String getUpdateType() {
+		return updateType;
 	}
 
-	public void setUPDATE_TYPE(String uPDATE_TYPE) {
-		UPDATE_TYPE = uPDATE_TYPE;
+	public void setUpdateType(String updateType) {
+		this.updateType = updateType;
 	}
 
-	public String getOLD_CONTENT() {
-		return OLD_CONTENT;
+	public String getOldContent() {
+		return oldContent;
 	}
 
-	public void setOLD_CONTENT(String oLD_CONTENT) {
-		OLD_CONTENT = oLD_CONTENT;
+	public void setOldContent(String oldContent) {
+		this.oldContent = oldContent;
 	}
 
-	public String getNEW_CONTENT() {
-		return NEW_CONTENT;
+	public String getNewContent() {
+		return newContent;
 	}
 
-	public void setNEW_CONTENT(String nEW_CONTENT) {
-		NEW_CONTENT = nEW_CONTENT;
+	public void setNewContent(String newContent) {
+		this.newContent = newContent;
 	}
 
-	public int getORDER_ID() {
-		return ORDER_ID;
+	public int getOrderId() {
+		return orderId;
 	}
 
-	public void setORDER_ID(int oRDER_ID) {
-		ORDER_ID = oRDER_ID;
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
 	}
 
 	public Order getOrder() {

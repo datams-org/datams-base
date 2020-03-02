@@ -1,73 +1,78 @@
 package com.wiseweb.order.entity;
 
+import java.util.Date;
+
 import com.thinkgem.jeesite.common.persistence.DataEntity;
 
 public class Order extends DataEntity<Order> {
 
 	private static final long serialVersionUID = 1L;
 
-	private int ORDER_ID;
-	private String EXECUTOR;
-	private String CHANGER;
-	private String DB_TYPE;
-	private String UPDATE_TYPE;
-	private String DB_CODE;
-	private String AVAILABLE;
-
-	public int getORDER_ID() {
-		return ORDER_ID;
+	//主键id
+	private int orderId;
+	//执行人
+	private String executor;
+	//变更人
+	private String changer;
+	//库类型
+	private String dbType;
+	//更新类型
+	private String updateType;
+	//库名称
+	private String dbCode;
+	//是否可用
+	private String available;
+	//创建时间
+	private Date createTime;
+	public int getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
+	public String getExecutor() {
+		return executor;
+	}
+	public void setExecutor(String executor) {
+		this.executor = executor;
+	}
+	public String getChanger() {
+		return changer;
+	}
+	public void setChanger(String changer) {
+		this.changer = changer;
+	}
+	public String getDbType() {
+		return dbType;
+	}
+	public void setDbType(String dbType) {
+		this.dbType = dbType;
+	}
+	public String getUpdateType() {
+		return updateType;
+	}
+	public void setUpdateType(String updateType) {
+		this.updateType = updateType;
+	}
+	public String getDbCode() {
+		return dbCode;
+	}
+	public void setDbCode(String dbCode) {
+		this.dbCode = dbCode;
+	}
+	public String getAvailable() {
+		return available;
+	}
+	public void setAvailable(String available) {
+		this.available = available;
+	}
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
-	public void setORDER_ID(int oRDER_ID) {
-		ORDER_ID = oRDER_ID;
-	}
-
-	public String getEXECUTOR() {
-		return EXECUTOR;
-	}
-
-	public void setEXECUTOR(String eXECUTOR) {
-		EXECUTOR = eXECUTOR;
-	}
-
-	public String getCHANGER() {
-		return CHANGER;
-	}
-
-	public void setCHANGER(String cHANGER) {
-		CHANGER = cHANGER;
-	}
-
-	public String getDB_TYPE() {
-		return DB_TYPE;
-	}
-
-	public void setDB_TYPE(String dB_TYPE) {
-		DB_TYPE = dB_TYPE;
-	}
-
-	public String getUPDATE_TYPE() {
-		return UPDATE_TYPE;
-	}
-
-	public void setUPDATE_TYPE(String uPDATE_TYPE) {
-		UPDATE_TYPE = uPDATE_TYPE;
-	}
-
-	public String getDB_CODE() {
-		return DB_CODE;
-	}
-
-	public void setDB_CODE(String dB_CODE) {
-		DB_CODE = dB_CODE;
-	}
-
-	public String getAVAILABLE() {
-		return AVAILABLE;
-	}
-
-	public void setAVAILABLE(String aVAILABLE) {
-		AVAILABLE = aVAILABLE;
-	}
-
+	
+	
 }

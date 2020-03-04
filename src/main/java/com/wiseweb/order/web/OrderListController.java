@@ -26,6 +26,8 @@ import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.common.utils.IdGen;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.modules.sys.entity.User;
+import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 import com.wiseweb.order.entity.Order;
 import com.wiseweb.order.entity.OrderFiled;
 import com.wiseweb.order.entity.OrderInfo;
@@ -41,7 +43,7 @@ public class OrderListController extends BaseController {
 	private OrderService orderService;
 
 	@ModelAttribute
-	public OrderFiled get(@RequestParam(required = false) String fieldId) {
+	public OrderFiled get(@RequestParam(required = false) String fieldId,@RequestParam(required = false) Integer tableId) {
 		OrderFiled entity = null;
 		if (StringUtils.isNotBlank(fieldId)) {
 			OrderFiled orderFiled = new OrderFiled();
@@ -50,6 +52,9 @@ public class OrderListController extends BaseController {
 		}
 		if (entity == null) {
 			entity = new OrderFiled();
+			if(tableId != null) {
+				entity.setTableId(tableId);
+			}
 		}
 		return entity;
 	}
@@ -59,9 +64,10 @@ public class OrderListController extends BaseController {
 	public String findTable(OrderFiled orderFiled, Model model) {
 		List<OrderFiled> orderFileds = orderService.findInfoByTableId(orderFiled);
 		model.addAttribute("orderFiled", orderFileds);
-		if (orderFileds != null) {
-			model.addAttribute("tableId", orderFileds.get(0).getTableCode());
+		if (orderFileds.size() != 0 && orderFileds!= null) {
+			model.addAttribute("tableCode", orderFileds.get(0).getTableCode());
 			model.addAttribute("dbCode", orderFileds.get(0).getDbCode());
+			model.addAttribute("tableId", orderFileds.get(0).getTableId());
 		}
 		return "jeesite/order/orderTableList";
 	}
@@ -89,7 +95,10 @@ public class OrderListController extends BaseController {
 			order.setDbType(dbType);
 			order.setAvailable("0");
 			order.setCreateDate(new Date());
-
+			
+			User user = UserUtils.getUser();
+			order.setChanger(user.getName());
+			
 			for (OrderTemp orderTemp : orderTemps) {
 				if (orderTemp.getUpdateType().equals("新增字段")) {
 					count++;

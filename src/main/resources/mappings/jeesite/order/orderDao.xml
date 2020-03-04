@@ -142,8 +142,8 @@
 			a.NEW_CONTENT AS "newContent",
 			a.CREATE_TIME AS "createDate",
 			a.ORDER_ID AS "orderId",
-			b.EXECUTOR AS "order.EXECUTOR",
-			b.CHANGER AS "order.CHANGER",
+			b.EXECUTOR AS "order.executor",
+			b.CHANGER AS "order.changer",
 			b.CREATE_TIME AS "order.createDate"
 		from mu_order_infro a
 		left join mu_order b on b.order_id = a.order_id
@@ -180,6 +180,7 @@
 	
 	<insert id="saveOrderTemp">
 		INSERT INTO MU_ORDER_TEMP(
+			
 			SYSTEM_CODE,
 			TABLE_CODE,
 			FIELD_CODE,
@@ -200,12 +201,14 @@
 	
 	<insert id="saveOrder">	
 		INSERT INTO MU_ORDER(
+			CHANGER,
 			DB_TYPE,
 			UPDATE_TYPE,
 			DB_CODE,
 			AVAILABLE,
 			CREATE_TIME
 		) VALUES (
+			#{changer},
 			#{dbType},
 			#{updateType},
 			#{dbCode},

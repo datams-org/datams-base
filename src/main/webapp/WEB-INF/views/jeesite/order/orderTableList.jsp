@@ -13,8 +13,8 @@
         	return false;
         }
 		
-		function addNew() {
-			window.location.href = "${ctx}/order/other/form";
+		function addNew(id) {
+			window.location.href = "${ctx}/order/other/form?tableId="+id;
 		}
 		function generateOrder(id,code){
 			$.ajax({
@@ -44,8 +44,8 @@
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<li class="btns">
-			<input id="" class="btn btn2 btn-primary" type="button" value="新增" onclick="addNew()"/>
-			<input id="btnSubmit" class="btn btn-primary" type="button" value="生成工单" onclick="generateOrder('${tableId}','${dbCode }')"/>
+			<input id="" class="btn btn2 btn-primary" type="button" value="新增" onclick="addNew('${tableId}')"/>
+			<input id="btnSubmit" class="btn btn-primary" type="button" value="生成工单" onclick="generateOrder('${tableCode}','${dbCode }')"/>
 		</li>
 	</form:form>
 	<sys:message content="${message}" type="hide"/>

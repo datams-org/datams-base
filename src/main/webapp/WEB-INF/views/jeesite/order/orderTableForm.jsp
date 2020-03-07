@@ -17,15 +17,30 @@
 
 		<div class="control-group">
 			<label class="control-label">scheme:</label>
-			<div class="controls">
-				<form:input path="schemeCode" htmlEscape="false" maxlength="60" class="input-xxlarge"/>
-			</div>
+			<c:if test="${orderFiled.schemeCode != null }">
+				<div class="controls">
+					<label>${orderFiled.schemeCode }</label>
+				</div>
+			</c:if>
+			<c:if test="${orderFiled.schemeCode == null }">
+				<div class="controls">
+					<form:input path="schemeCode" htmlEscape="false" maxlength="60" class="input-xxlarge"/>
+				</div>
+			</c:if>
+			
 		</div>
 		<div class="control-group">
 			<label class="control-label">表名:</label>
-			<div class="controls">
-				<form:input path="tableCode" htmlEscape="false" maxlength="60" class="input-xxlarge"/>
-			</div>
+			<c:if test="${orderFiled.tableCode != null }">
+				<div class="controls">
+					<label>${orderFiled.tableCode }</label>
+				</div>
+			</c:if>
+			<c:if test="${orderFiled.tableCode == null }">
+				<div class="controls">
+					<form:input path="tableCode" htmlEscape="false" maxlength="60" class="input-xxlarge"/>
+				</div>
+			</c:if>
 		</div>
 		<div class="control-group">
 			<label class="control-label">序号:</label>

@@ -32,7 +32,7 @@
 		<sys:tableSort id="orderBy" name="orderBy" value="${page.orderBy}" callback="page();"/>
 		<li>
 			<label>工单号：</label>
-			<form:input path="orderId" htmlEscape="false" maxlength="50" class="input-medium" type="number"/>
+			<form:input path="id" htmlEscape="false" maxlength="50" class="input-medium"/>
 		</li>
 		<li>
 			<label>工单生成时间：</label>
@@ -77,10 +77,12 @@
 				<td>${fns:getDictLabel(order.available, 'yes_no', '')}</td>
 				<td>${order.executor}</td>
 				<td>${order.changer}</td>
-				<td>${order.createTime}</td>
+				<td><fmt:formatDate value="${order.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 				<td>
-					<a href="${ctx}/datams/muorderinfro/list?orderId=${order.orderId}">修改</a>
-					<a href="${ctx}/datams/muorder/delete?orderId=${order.orderId}">删除</a>
+					<c:if test="${order.available}==0">
+						<a href="${ctx}/datams/muorderinfro/list?orderId=${order.orderId}">修改</a>
+						<a href="${ctx}/datams/muorder/delete?orderId=${order.orderId}">删除</a>
+					</c:if>
 				</td>
 			</tr>
 		</c:forEach>

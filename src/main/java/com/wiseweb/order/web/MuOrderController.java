@@ -35,10 +35,10 @@ public class MuOrderController extends BaseController{
 	@RequestMapping(value = {"list",""})
 	public String list(Order order,HttpServletRequest request,HttpServletResponse response,Model model)
 	{
-		/*if(request.getParameter("id") != "")
+		if(request.getParameter("id") != "")
 		{
-			muOrder.setOrderId(Integer.parseInt(request.getParameter("id")));
-		}*/
+			order.setOrderId(0);
+		}
 		Page<Order> page = muOrderService.findPage(new Page<Order>(request, response), order);
 		model.addAttribute("page", page);
 		return "datams/muorder/MuOrderList";

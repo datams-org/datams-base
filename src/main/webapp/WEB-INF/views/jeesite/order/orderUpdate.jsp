@@ -162,7 +162,10 @@
 				<td style="border: none"><fmt:formatDate value="${updateTime }" pattern="yyyy-MM-dd"/></td>
 			</tr>
 			<tr>
-				<td style="text-align: center;border: none" colspan="3"><input id="" class="btn btn2 btn-primary" type="button" value="确认" onclick="saveScript('${id }')"/></td>
+				<td style="text-align: center;border: none" colspan="3">
+					<input id="" class="btn btn2 btn-primary" type="button" value="确认" onclick="saveScript('${id }')"/>
+					<input id="btnCancel" class="btn btn2 btn-primary" type="button" value="返 回" onclick="history.go(-1)"/>
+				</td>
 			</tr>
 		</table>
 	</form:form>

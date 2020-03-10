@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiseweb.order.dao.OrderUpdateDao">
+	<sql id="DataColumns">
+		a.order_id AS "orderId",
+		a.EXECUTOR AS "executor",
+		a.changer AS "changer",
+		a.DB_TYPE AS "dbType",
+		a.UPDATE_TYPE AS "updateType",
+		a.DB_CODE AS "dbCode",
+		a.AVAILABLE AS "available",
+		a.CREATE_TIME AS "createDate"
+	</sql>
+	
+	<select id="get" resultType="Order">
+		SELECT 
+			<include refid="DataColumns"/>
+		FROM mu_order a
+		WHERE a.order_id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Order">
+		SELECT 
+			<include refid="DataColumns"/>
+		FROM mu_order a
+		<where>
+			<if test="available != null and available != ''">
+				AND a.available = #{available}
+			</if>
+			
+			<if test="orderId != null and orderId != ''">
+				AND a.order_id = #{orderId}
+			</if>
+			<if test="changer != null and changer != ''">
+				AND a.order_id = #{orderId}
+			</if>
+		</where>
+	</select>
+</mapper>

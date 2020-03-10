@@ -32,7 +32,8 @@
 	
 				},
 				success: function(data, status) {
-					alert("执行人变更成功")
+					alert("执行人变更成功");
+					window.location.href = "${ctx}/datams/muorder/";
 				}
 			});
 		}

@@ -194,7 +194,7 @@ public class OrderListController extends BaseController {
 		List<OrderInfo> orderInfos = orderService.findOrderInfoById(orderScript);
 		List<OrderScript> orderScripts = orderService.findScriptById(orderScript);
 
-		if(orderInfos != null) {
+		if(orderInfos != null && orderInfos.size() != 0) {
 			model.addAttribute("time", orderInfos.get(0).getCreateDate());
 			model.addAttribute("id", orderInfos.get(0).getOrderId());
 			model.addAttribute("EXECUTOR", orderInfos.get(0).getOrder().getExecutor());

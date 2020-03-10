@@ -66,6 +66,7 @@ public class OrderListController extends BaseController {
 		model.addAttribute("orderFiled", orderFileds);
 		if (orderFileds.size() != 0 && orderFileds!= null) {
 			model.addAttribute("tableCode", orderFileds.get(0).getTableCode());
+			model.addAttribute("scheme", orderFileds.get(0).getSchemeCode());
 			model.addAttribute("dbCode", orderFileds.get(0).getDbCode());
 			model.addAttribute("tableId", orderFileds.get(0).getTableId());
 		}

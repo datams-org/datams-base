@@ -79,7 +79,7 @@
 				<td>${order.changer}</td>
 				<td><fmt:formatDate value="${order.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 				<td>
-					<c:if test="${order.available}==0">
+					<c:if test="${order.available == 0}">
 						<a href="${ctx}/datams/muorderinfro/list?orderId=${order.orderId}">修改</a>
 						<a href="${ctx}/datams/muorder/delete?orderId=${order.orderId}">删除</a>
 					</c:if>

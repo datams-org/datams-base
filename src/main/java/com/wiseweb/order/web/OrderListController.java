@@ -179,8 +179,13 @@ public class OrderListController extends BaseController {
 				} 
 				
 			} catch (Exception e) {
-				oldContent += ")";
-				newContent += ")";
+				if(StringUtils.isBlank(orderFiled.getFieldAccuracy())) {
+					oldContent += ")";
+					newContent += ")";
+				} else {
+					oldContent += ","+ orderFiled_old.getFieldAccuracy()+")";
+					newContent += ","+ orderFiled.getFieldAccuracy()+")";
+				}
 			}
 			orderTemp.setUpdateType("修改字段");
 			orderTemp.setOldContent(oldContent);
@@ -200,6 +205,7 @@ public class OrderListController extends BaseController {
 
 		if(orderInfos != null && orderInfos.size() != 0) {
 			model.addAttribute("time", orderInfos.get(0).getCreateDate());
+			model.addAttribute("tableCode", orderInfos.get(0).getTableCode());
 			model.addAttribute("id", orderInfos.get(0).getOrderId());
 			model.addAttribute("EXECUTOR", orderInfos.get(0).getOrder().getExecutor());
 			model.addAttribute("changer", orderInfos.get(0).getOrder().getChanger());
@@ -263,25 +269,31 @@ public class OrderListController extends BaseController {
 	@RequestMapping(value = "saveScript")
 	public String saveScript(OrderScript orderScript,HttpServletResponse response) {
 		Map<String, String> map = Maps.newHashMap();
-		List<OrderScript> orderScripts = orderService.findScriptById(orderScript);
-		
-		if(orderScripts != null) {
-			for(OrderScript Script : orderScripts) {
-				OrderScriptExe orderScriptExe = new OrderScriptExe();
-				
-				orderScriptExe.setTableCode(Script.getTableCode());
-				orderScriptExe.setExeStr(Script.getExeStr());
-				orderScriptExe.setScripType(Script.getScripType());
-				orderScriptExe.setIsExecute("0");
-				orderScriptExe.setCreateDate(new Date());
-				orderScriptExe.setUpdateDate(new Date());
-				
-				orderService.saveOrderScriptExe(orderScriptExe);
+		int count = 0;
+		count = orderService.findScriptExeById(orderScript);
+		if(count == 0) {
+			List<OrderScript> orderScripts = orderService.findScriptById(orderScript);
+			if(orderScripts != null) {
+				for(OrderScript Script : orderScripts) {
+					OrderScriptExe orderScriptExe = new OrderScriptExe();
+					
+					orderScriptExe.setTableCode(Script.getTableCode());
+					orderScriptExe.setExeStr(Script.getExeStr());
+					orderScriptExe.setScripType(Script.getScripType());
+					orderScriptExe.setIsExecute("0");
+					orderScriptExe.setCreateDate(new Date());
+					orderScriptExe.setUpdateDate(new Date());
+					
+					orderService.saveOrderScriptExe(orderScriptExe);
+				}
+				map.put("result", "success");
+			} else {
+				map.put("result", "error");
 			}
-			map.put("result", "success");
 		} else {
-			map.put("result", "error");
+			map.put("result", "no");
 		}
+		
 		
 		return renderString(response, map);
 	}

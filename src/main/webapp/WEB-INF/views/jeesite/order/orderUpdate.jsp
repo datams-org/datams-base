@@ -13,17 +13,19 @@
 			window.location.href = "${ctx}/order/other/down?scripType="+type+"&orderId="+id;
 		}
 		
-		function saveScript(id) {
+		function saveScript(id,tableCode) {
 			$.ajax({
 				type:"POST",
 				url:"${ctx}/order/other/saveScript",
-				data:{"orderId":id},
+				data:{"orderId":id,"tableCode":tableCode},
 				error: function(data,status) {
 					$.jBox.error('发生未知错误，请联系管理员。', '错误');
 				},
 				success: function(data,status) {
 					if(data["result"]=="success"){
 						$.jBox.success('保存成功！','成功');
+					} else if(data["result"]=="no"){
+						$.jBox.error('该工单已经被确认执行！','错误');
 					} else {
 						$.jBox.error('保存失败', '错误');
 					}
@@ -163,7 +165,7 @@
 			</tr>
 			<tr>
 				<td style="text-align: center;border: none" colspan="3">
-					<input id="" class="btn btn2 btn-primary" type="button" value="确认" onclick="saveScript('${id }')"/>
+					<input id="" class="btn btn2 btn-primary" type="button" value="确认" onclick="saveScript('${id }','${tableCode }')"/>
 					<input id="btnCancel" class="btn btn2 btn-primary" type="button" value="返 回" onclick="history.go(-1)"/>
 				</td>
 			</tr>

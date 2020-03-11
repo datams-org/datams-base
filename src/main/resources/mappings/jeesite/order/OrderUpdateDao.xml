@@ -27,7 +27,6 @@
 			<if test="available != null and available != ''">
 				AND a.available = #{available}
 			</if>
-			
 			<if test="orderId != null and orderId != ''">
 				AND a.order_id = #{orderId}
 			</if>

@@ -87,6 +87,15 @@
 		</where>
 	</select>
 	
+	<select id="findScriptExeById" resultType="int">
+		SELECT 
+			count(*)
+		FROM mu_script_exe a
+		<where>
+			a.table_code = #{tableCode}
+		</where>
+	</select>
+	
 	<select id="findDbType" resultType="String">
 		SELECT 
 			db_code

@@ -13,6 +13,8 @@
 		<form:hidden path="fieldName"/>
 		<form:hidden path="fieldId"/>
 		<form:hidden path="tableId"/>
+		<form:hidden path="schemeCode"/>
+		<form:hidden path="tableCode"/>
 		<sys:message content="${message}"/>
 
 		<div class="control-group">

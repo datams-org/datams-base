@@ -113,4 +113,9 @@ public class OrderService extends CrudService<OrderDao,OrderSystem>{
 		orderDao.saveOrderScriptExe(orderScriptExe);
 	}
 
+	public int findScriptExeById(OrderScript orderScript) {
+		int count = orderDao.findScriptExeById(orderScript);
+		return count;
+	}
+
 }

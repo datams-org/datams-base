@@ -46,4 +46,6 @@ public interface OrderDao extends CrudDao<OrderSystem>{
 
 	void saveOrderScriptExe(OrderScriptExe orderScriptExe);
 
+	int findScriptExeById(OrderScript orderScript);
+
 }

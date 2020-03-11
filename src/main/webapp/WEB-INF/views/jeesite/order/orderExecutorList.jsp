@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <html>
 <head>
-	<title>变更单</title>
+	<title>工单执行单</title>
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		
@@ -13,21 +13,18 @@
         	return false;
         }
 		
-		function addNew(id,tableCode,scheme) {
-			window.location.href = "${ctx}/order/other/form?tableId="+id+"&tableCode="+tableCode+"&schemeCode="+scheme;
-		}
 	</script>
 </head>
 <body>
-	<form:form id="searchForm" modelAttribute="order" action="${ctx}/order/update/list?available=1" method="post" class="breadcrumb form-search">
+	<form:form id="searchForm" modelAttribute="orderScriptExe" action="${ctx}/order/executor/list" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
 			<li><label>工单号：</label>
 				<form:input path="id" htmlEscape="false" maxlength="100" class="input-medium"/>
 			</li>
-			<li><label>变更人：</label>
-				<form:input path="changer" htmlEscape="false" maxlength="100" class="input-medium"/>
+			<li><label>执行人：</label>
+				<form:input path="order.executor" htmlEscape="false" maxlength="100" class="input-medium"/>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 		</ul>
@@ -36,20 +33,17 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>工单号</th><th>库名称</th><th>执行人</th><th>变更人</th><th>创建时间</th><th>操作</th>
+				<th>工单脚本号</th><th>表名称</th><th>脚本类型</th><th>是否执行</th><th>创建时间</th>
 			</tr>
 		</thead>
 		<tbody>
-		<c:forEach items="${page.list}" var="order">
+		<c:forEach items="${page.list}" var="script">
 			<tr>
-				<td>${order.orderId}</td>
-				<td>${order.dbCode}</td>
-				<td>${order.executor}</td>
-				<td>${order.changer}</td>
-				<td><fmt:formatDate value="${order.createDate}" type="both"/></td>
-				<td>
-	    			<a href="${ctx}/order/other/orderScript?orderId=+${order.orderId}">工单详情</a>
-				</td>
+				<td>${script.orderScriptId}</td>
+				<td>${script.tableCode}</td>
+				<td>${script.scripType}</td>
+				<td>${script.isExecute}</td>
+				<td><fmt:formatDate value="${script.createDate}" type="both"/></td>
 			</tr>
 		</c:forEach>
 		</tbody>

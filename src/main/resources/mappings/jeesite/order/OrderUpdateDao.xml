@@ -10,6 +10,7 @@
 		a.DB_CODE AS "dbCode",
 		a.AVAILABLE AS "available",
 		a.CREATE_TIME AS "createDate"
+		
 	</sql>
 	
 	<select id="get" resultType="Order">

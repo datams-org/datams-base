@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiseweb.order.dao.OrderExecutorDao">
+	<sql id="DataColumns">
+		a.order_script_id AS "orderScriptId",
+		a.table_code AS "tableCode",
+		a.exe_str AS "exeStr",
+		a.scrip_type AS "scripType",
+		a.is_execute AS "isExecute",
+		a.CREATE_TIME AS "createDate"
+	</sql>
+	
+	<select id="get" resultType="OrderScriptExe">
+		SELECT 
+			<include refid="DataColumns"/>
+		FROM mu_script_exe a
+		WHERE a.order_script_id = #{id}
+	</select>
+	
+	<select id="findList" resultType="OrderScriptExe">
+		SELECT 
+			<include refid="DataColumns"/>
+		FROM mu_script_exe a
+		join mu_order_script b on a.table_code = b.table_code
+		join mu_order c on b.order_id = c.order_id
+		<where>
+			
+			<if test="order != null and order.orderId != null and order.orderId != ''">
+				AND c.order_id = #{order.orderId}
+			</if>
+			<if test="order != null and order.executor != null and order.executor != ''">
+				AND c.executor = #{order.executor}
+			</if>
+		</where>
+	</select>
+</mapper>

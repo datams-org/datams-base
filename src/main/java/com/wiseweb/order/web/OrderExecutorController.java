@@ -13,34 +13,37 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.wiseweb.order.entity.Order;
-import com.wiseweb.order.service.OrderUpdateService;
+import com.wiseweb.order.entity.OrderScriptExe;
+import com.wiseweb.order.service.OrderExecutorService;
 
 @Controller
-@RequestMapping(value = "${adminPath}/order/update/")
-public class OrderUpdateController {
+@RequestMapping(value = "${adminPath}/order/executor/")
+public class OrderExecutorController {
 	@Autowired
-	private OrderUpdateService OrderUpdateService;
+	private OrderExecutorService orderExecutorService;
 	
 	@ModelAttribute
-	public Order get(@RequestParam(required = false) String id) {
-		Order entity = null;
+	public OrderScriptExe get(@RequestParam(required = false) String id) {
+		OrderScriptExe entity = null;
 		if (StringUtils.isNotBlank(id)) {
-			entity = OrderUpdateService.get(id);
+			entity = orderExecutorService.get(id);
 		}
 		if (entity == null) {
-			entity = new Order();
+			entity = new OrderScriptExe();
 		}
 		return entity;
 	}
 	
 	@RequestMapping(value = "list")
-	public String list(Order order,Model model,HttpServletResponse response,HttpServletRequest request) {
+	public String list(OrderScriptExe orderScriptExe,Model model,HttpServletResponse response,HttpServletRequest request) {
 		if(request.getParameter("id") == "" || request.getParameter("id") == null) {
 		} else {
-			order.setOrderId(Integer.parseInt(request.getParameter("id"))); 
+			Order order = new Order();
+			order.setOrderId(Integer.parseInt(request.getParameter("id")));
+			orderScriptExe.setOrder(order); 
 		}
-		Page<Order> page = OrderUpdateService.findPage(new Page<Order>(request, response), order); 
+		Page<OrderScriptExe> page = orderExecutorService.findPage(new Page<OrderScriptExe>(request, response), orderScriptExe); 
 		model.addAttribute("page", page);
-		return "jeesite/order/orderUpdateList";
+		return "jeesite/order/orderExecutorList";
 	}
 }

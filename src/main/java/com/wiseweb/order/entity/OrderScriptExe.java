@@ -12,6 +12,10 @@ public class OrderScriptExe extends DataEntity<OrderScriptExe> {
 	private String scripType;
 	private String isExecute;
 
+	private OrderScript orderScript;
+	
+	private Order order;
+	
 	public int getOrderScriptId() {
 		return orderScriptId;
 	}
@@ -50,6 +54,22 @@ public class OrderScriptExe extends DataEntity<OrderScriptExe> {
 
 	public void setIsExecute(String isExecute) {
 		this.isExecute = isExecute;
+	}
+
+	public OrderScript getOrderScript() {
+		return orderScript;
+	}
+
+	public void setOrderScript(OrderScript orderScript) {
+		this.orderScript = orderScript;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
 }

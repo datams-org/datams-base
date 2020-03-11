@@ -165,18 +165,22 @@ public class OrderListController extends BaseController {
 			String oldContent = "";
 			String newContent = "";
 			try {
-				if (!orderFiled_old.getFieldType().equals(orderFiled.getFieldType()) || orderFiled_old.getFieldLen().equals(orderFiled.getFieldLen())) {
+				if (!orderFiled_old.getFieldType().equals(orderFiled.getFieldType()) || !orderFiled_old.getFieldLen().equals(orderFiled.getFieldLen())) {
 					oldContent += orderFiled_old.getFieldType() + "("+orderFiled_old.getFieldLen();
 					newContent +=orderFiled.getFieldType() + "("+orderFiled.getFieldLen();
+					
+					if (!orderFiled_old.getFieldAccuracy().equals(orderFiled.getFieldAccuracy())) {
+						oldContent += ","+ orderFiled_old.getFieldAccuracy()+")";
+						newContent += ","+ orderFiled.getFieldAccuracy()+")";
+					} else {
+						oldContent += ")";
+						newContent += ")";
+					}
 				} 
-				if (!orderFiled_old.getFieldAccuracy().equals(orderFiled.getFieldAccuracy())) {
-					oldContent += ","+ orderFiled_old.getFieldAccuracy()+")";
-					newContent += ","+ orderFiled.getFieldAccuracy()+")";
-				} else {
-					oldContent += ")";
-					newContent += ")";
-				}
+				
 			} catch (Exception e) {
+				oldContent += ")";
+				newContent += ")";
 			}
 			orderTemp.setUpdateType("修改字段");
 			orderTemp.setOldContent(oldContent);
